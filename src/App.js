@@ -4,12 +4,14 @@ import { Header, Card, Spinner, CardSection } from './components/common';
 import axios from 'axios';
 import Search from './components/Search';
 import StockList from './components/StockList';
+import StockDetails from './components/StockDetails';
 
 export default class App extends Component {
 
   state = { term: '', stocks: [], loading: true, selectedStock: null };
 
   componentWillMount() {
+    // fetch all data before mount
     this.fetchData();
   }
 
@@ -60,6 +62,10 @@ export default class App extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Header headerText="Stock App" />
+        <StockDetails
+          selectedStock={this.state.selectedStock}
+          deleteSelected={() => this.setState({ selectedStock: null })}
+          />
         <Card>
           <Search getSearchTerm={this.fetchData} />
         </Card>
