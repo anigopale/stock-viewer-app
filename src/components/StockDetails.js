@@ -4,8 +4,15 @@ import { CardSection, Button } from './common';
 
 export default class StockDetail extends Component {
 
+  renderDetails() {
+    if (this.props.selectedStock) {
+      return (
+        <Text>{this.props.selectedStock.SYMBOL}</Text>
+      )
+    }
+  }
+
   render() {
-    // let { SYMBOL } = this.props.selectedStock;
     return (
       <Modal
         animationType='slide'
@@ -13,8 +20,8 @@ export default class StockDetail extends Component {
         visible={this.props.selectedStock ? true : false }
         onRequestClose={() => {}}
         >
-        <CardSection>
-          <Text>symbol</Text>
+        <View style={{ marginTop: 100, marginLeft: 'auto', marginRight:'auto', height: 100, width: 100, padding: 10 }}>
+          {this.renderDetails()}
           <Button
             onPress={() => {
               this.props.deleteSelected()
@@ -23,7 +30,7 @@ export default class StockDetail extends Component {
             >
             Close
           </Button>
-        </CardSection>
+        </View>
       </Modal>
     );
   }
