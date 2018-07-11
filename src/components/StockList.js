@@ -7,7 +7,10 @@ export default class StockList extends Component {
   renderStockList() {
     return this.props.stocks.map(stock => {
       return (
-        <StockListItem stock={stock} />
+        <StockListItem
+          stock={stock}
+          getSelectedStock={stock => this.props.getSelectedStock(stock)}
+          />
       );
     });
   }

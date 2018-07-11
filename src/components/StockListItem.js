@@ -1,12 +1,16 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { CardSection } from './common';
 
-const StockListItem = ({ stock }) => {
+const StockListItem = (props) => {
+  let { stock } = props;
+
   return (
-    <CardSection>
-      <Text>{stock.SYMBOL}</Text>
-    </CardSection>
+    <TouchableOpacity onPress={() => props.getSelectedStock(stock)}>
+      <CardSection>
+        <Text>{stock.SYMBOL}</Text>
+      </CardSection>
+    </TouchableOpacity>
   );
 }
 

@@ -7,7 +7,7 @@ import StockList from './components/StockList';
 
 export default class App extends Component {
 
-  state = { term: '', stocks: [], loading: true };
+  state = { term: '', stocks: [], loading: true, selectedStock: null };
 
   componentWillMount() {
     this.fetchData();
@@ -46,7 +46,10 @@ export default class App extends Component {
     }
 
     return (
-      <StockList stocks={this.state.stocks} />
+      <StockList
+        stocks={this.state.stocks}
+        getSelectedStock={selectedStock => this.setState({ selectedStock })}
+        />
     );
   }
 
@@ -56,6 +59,8 @@ export default class App extends Component {
         <Header headerText="Stock App" />
         <Card>
           <Search getSearchTerm={this.fetchData} />
+        </Card>
+        <Card>
           {this.renderStockList()}
         </Card>
       </View>
