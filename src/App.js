@@ -13,26 +13,29 @@ export default class App extends Component {
     this.fetchData();
   }
 
-  fetchData = (term) => {
+  fetchData = (term = '') => {
     const url = `https://stock-assignment-api.herokuapp.com/stockData`;
     let filter = '';
-    // if term exists, filter results
-    if (term) {
+    // if term exists, filter data
+    if (term.length >= 3) {
       filter = `?SYMBOL_like=${term}`;
     }
 
-    // before fetching toggle loading flag
-    this.setState({ stocks: [], loading: true });
-
-    // fetch data and store in app state
-    axios.get(`${url}${filter}`)
-    .then(response => {
-      this.setState({ stocks: response.data, loading: false });
-    })
-    .catch(error => {
-      console.log(error);
+    // fetch data if filter exists or if search bar is empty
+    if (filter || !term) {
+      // before fetching toggle loading flag
       this.setState({ stocks: [], loading: true });
-    });
+
+      // fetch data and store in app state
+      axios.get(`${url}${filter}`)
+      .then(response => {
+        this.setState({ stocks: response.data, loading: false });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ stocks: [], loading: true });
+      });
+    }
   }
 
   renderStockList() {

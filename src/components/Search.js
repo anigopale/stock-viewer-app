@@ -7,12 +7,8 @@ export default class Search extends Component {
 
   handleChangeText = (term) => {
     this.setState({ term });
-    // pass props if term.length >= 3
-    if (term.length >= 3) {
-      this.props.getSearchTerm(term);
-    } else {
-      this.props.getSearchTerm('');
-    }
+    this.props.getSearchTerm(term);
+
   }
 
   render() {

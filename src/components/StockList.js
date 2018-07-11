@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ListView, ScrollView } from 'react-native';
 import StockListItem from './StockListItem';
 
 export default class StockList extends Component {
 
-  renderStockList() {
-    return this.props.stocks.map(stock => {
-      return (
-        <StockListItem
-          stock={stock}
-          getSelectedStock={stock => this.props.getSelectedStock(stock)}
-          />
-      );
+  componentWillMount() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 != r2
     });
+    this.dataSource = ds.cloneWithRows(this.props.stocks);
+  }
+
+  renderRow = (stock) => {
+    return (
+      <StockListItem
+        stock={stock}
+        getSelectedStock={stock => this.props.getSelectedStock(stock)}
+        />
+    );
   }
 
   render() {
     return (
       <ScrollView>
-        {this.renderStockList()}
+        <ListView
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+          />
       </ScrollView>
     );
   }
