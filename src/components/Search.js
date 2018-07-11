@@ -4,6 +4,15 @@ import { Input, CardSection } from './common';
 
 export default class Search extends Component {
   state = { term: '' };
+
+  handleChangeText = (term) => {
+    this.setState({ term });
+    // pass props if term.length >= 3
+    if (term.length >= 3) {
+      this.props.getSearchTerm(term);
+    }
+  }
+
   render() {
     return (
       <View>
@@ -11,7 +20,7 @@ export default class Search extends Component {
           <Input
             label='search for stocks'
             value={this.state.term}
-            onChangeText={(term) => {this.setState({ term })}}
+            onChangeText={this.handleChangeText}
             />
         </CardSection>
       </View>
