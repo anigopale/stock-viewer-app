@@ -10,6 +10,8 @@ export default class Search extends Component {
     // pass props if term.length >= 3
     if (term.length >= 3) {
       this.props.getSearchTerm(term);
+    } else {
+      this.props.getSearchTerm('');
     }
   }
 

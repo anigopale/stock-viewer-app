@@ -9,11 +9,21 @@ export default class App extends Component {
 
   state = { term: '', stocks: [] };
 
-  fetchData = (term) => {
-    const url = `https://stock-assignment-api.herokuapp.com/stockData?SYMBOL_like=${term}`;
+  componentWillMount() {
+    this.fetchData();
+  }
 
+  fetchData = (term) => {
+    const url = `https://stock-assignment-api.herokuapp.com/stockData`;
+    let filter = '';
+    // if term exists, filter results
+    if (term) {
+      filter = `?SYMBOL_like=${term}`;
+    }
+
+    this.setState({ stocks: [] });
     // fetch data and store in app state
-    axios.get(url)
+    axios.get(`${url}${filter}`)
     .then(response => {
       this.setState({ stocks: response.data });
     })

@@ -1,31 +1,22 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { CardSection } from './common';
+import { View, ScrollView } from 'react-native';
+import StockListItem from './StockListItem';
 
 export default class StockList extends Component {
 
   renderStockList() {
     return this.props.stocks.map(stock => {
       return (
-        <CardSection>
-          <Text>{stock.SYMBOL}</Text>
-        </CardSection>
+        <StockListItem stock={stock} />
       );
     });
   }
 
   render() {
     return (
-      <View>
+      <ScrollView>
         {this.renderStockList()}
-      </View>
+      </ScrollView>
     );
-  }
-}
-
-const styles = {
-  stockItemStyle: {
-    width: 100,
-    flex: 1
   }
 }
